@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>戰鬥陀螺X（BEYBLADE X）全商品目錄｜非官方網站・粉絲EJ製作</title>
+<meta name="description" content="戰鬥陀螺X／ベイブレードX（Takara Tomy）BX、UX、CX 全系列商品與配件目錄，附台灣與日本購買連結及價格比較。非官方粉絲網站。">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="logo" href="#top"><span class="x">X</span> 戰鬥陀螺X 全商品目錄</a>
+    <span class="credit">非官方網站・粉絲EJ製作</span>
+  </div>
+</header>
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <h1>BEYBLADE X <small>戰鬥陀螺X／ベイブレードX</small></h1>
+      <p class="lead">依 Takara Tomy 官方商品清單整理的 <b id="cntAll">…</b> 項商品：<b id="cntProd">…</b> 項陀螺商品、<b id="cntAcc">…</b> 項配件。附台灣與日本通路連結，日本價格以臺灣銀行匯率換算新台幣比較。</p>
+      <div class="lines" id="lines"></div>
+    </div>
+  </section>
+
+  <nav class="tabs wrap" role="tablist">
+    <button class="tab on" data-tab="products">陀螺商品</button>
+    <button class="tab" data-tab="accessories">配件目錄</button>
+    <button class="tab" data-tab="about">說明與資料來源</button>
+  </nav>
+
+  <section id="controls" class="wrap controls">
+    <div class="searchrow">
+      <input id="q" type="search" placeholder="搜尋型號、中文名、日文名（例：BX-01、蒼龍、ドラン）" autocomplete="off">
+      <select id="groupBy" aria-label="分組方式">
+        <option value="series">依系列分組</option>
+        <option value="type">依戰鬥類型分組</option>
+        <option value="kind">依商品種類分組</option>
+      </select>
+      <select id="sortBy" aria-label="排序">
+        <option value="release">依官方發售順序</option>
+        <option value="code">依型號</option>
+        <option value="price">依日本定價（低→高）</option>
+      </select>
+    </div>
+    <div class="chips" id="fSeries"></div>
+    <div class="chips" id="fType"></div>
+    <div class="chips" id="fKind"></div>
+    <div class="chips" id="fAcc"></div>
+    <div class="chips" id="fMisc"></div>
+    <div class="resultinfo" id="resultInfo"></div>
+  </section>
+
+  <section id="list" class="wrap"></section>
+
+  <section id="about" class="wrap about" hidden></section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p class="credit-big">非官方網站・粉絲EJ製作</p>
+    <p id="footMeta"></p>
+    <p class="small">BEYBLADE X 為 TAKARA TOMY 之商標。本站與 Takara Tomy、麗嬰國際及各零售商無任何關係；商品圖片直接連結官方網站圖檔，版權屬原權利人。價格與庫存會變動，請以各通路頁面為準。</p>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
