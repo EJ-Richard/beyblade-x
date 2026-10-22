@@ -1,0 +1,68 @@
+:root{--bg:#0b0f1a;--panel:#131a2a;--panel2:#1a2338;--line:#26314d;--txt:#e8edf7;--mut:#9aa6c2;--bx:#2f7bff;--ux:#ff3b5c;--cx:#ffb300;--ok:#2ecc71;--warn:#ffb020;--atk:#ff4d4d;--def:#3fa9ff;--sta:#35d07f;--bal:#b07cff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#1b2a55 0,transparent 60%),var(--bg);color:var(--txt);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+a{color:#8cc4ff}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(11,15,26,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;justify-content:space-between;gap:12px;height:54px}
+.logo{color:var(--txt);text-decoration:none;font-weight:800;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo .x{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--bx),var(--ux) 55%,var(--cx));color:#fff;margin-right:6px}
+.credit{font-size:13px;color:#ffd54d;border:1px solid #5c4a12;background:#2a220a;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.hero{padding:34px 0 10px}
+.hero h1{margin:0 0 6px;font-size:clamp(26px,5vw,44px);line-height:1.15;background:linear-gradient(90deg,#fff,#9fc3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 small{display:block;font-size:.45em;color:var(--mut);-webkit-text-fill-color:var(--mut)}
+.lead{color:#c8d2e8;max-width:860px}
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:18px 0 6px}
+.line{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;border-top:4px solid var(--c)}
+.line h3{margin:0 0 4px;font-size:17px}.line p{margin:0;color:var(--mut);font-size:13.5px}
+.line .n{float:right;font-weight:800;color:var(--c)}
+.tabs{display:flex;gap:8px;margin-top:16px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{background:none;border:0;color:var(--mut);padding:10px 14px;font-size:15px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tab.on{color:#fff;border-color:var(--cx)}
+.controls{padding:14px 16px 4px}
+.searchrow{display:flex;gap:8px;flex-wrap:wrap}
+#q{flex:1 1 280px;min-width:0;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--txt);font-size:15px}
+select{padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--txt);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.chips .lab{font-size:12.5px;color:var(--mut);margin-right:4px;min-width:64px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--txt);padding:5px 11px;border-radius:999px;font-size:13.5px;cursor:pointer;user-select:none}
+.chip.on{background:#fff;color:#0b0f1a;border-color:#fff;font-weight:700}
+.chip .c{opacity:.6;font-size:12px;margin-left:3px}
+.resultinfo{color:var(--mut);font-size:13px;margin-top:10px}
+.group h2{font-size:20px;margin:26px 0 10px;display:flex;align-items:center;gap:10px}
+.group h2 .badge{font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.card .img{background:#fff;aspect-ratio:4/3;display:grid;place-items:center;position:relative}
+.card .img img{max-width:92%;max-height:92%;object-fit:contain}
+.card .img .noimg{color:#666;font-size:13px}
+.card .ser{position:absolute;left:8px;top:8px;color:#fff;font-weight:800;font-size:12px;padding:2px 8px;border-radius:6px}
+.card .lim{position:absolute;right:8px;top:8px;background:#111;color:#ffd54d;font-size:11.5px;padding:2px 7px;border-radius:6px;max-width:60%;text-align:right}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.code{font-weight:800;letter-spacing:.5px;color:#fff}
+.nm{font-size:16.5px;font-weight:800;line-height:1.35}
+.jp{color:var(--mut);font-size:13px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);color:#d7deee}
+.t-攻擊{background:#3a1416;border-color:#7a2a2e;color:#ffb3b3}.t-防禦{background:#10263b;border-color:#24557d;color:#a9d6ff}.t-耐久{background:#0f2d1e;border-color:#21633f;color:#a6f0c6}.t-平衡{background:#261a3d;border-color:#523a85;color:#d9c2ff}
+.price{background:var(--panel2);border-radius:12px;padding:9px 11px;font-size:13.5px}
+.price .row{display:flex;justify-content:space-between;gap:8px}
+.price b{font-size:15px}
+.diff{font-size:12.5px;margin-top:3px}.cheaper-tw{color:var(--ok)}.cheaper-jp{color:var(--warn)}
+.links h4{margin:6px 0 4px;font-size:12.5px;color:var(--mut);font-weight:700}
+.links ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.links li a{display:flex;justify-content:space-between;gap:8px;text-decoration:none;color:var(--txt);background:#0f1524;border:1px solid var(--line);border-radius:10px;padding:6px 9px;font-size:13px}
+.links li a:hover{border-color:#5d7bd6}
+.links .st{font-weight:700}.links .meta{color:var(--mut);font-size:11.5px;display:block;font-weight:400}
+.links .pr{white-space:nowrap;font-weight:700;color:#fff}
+.links .srch{font-size:11px;color:#ffd54d;border:1px solid #5c4a12;border-radius:4px;padding:0 4px;margin-left:4px}
+.na{color:var(--mut)}
+details.desc summary{cursor:pointer;color:var(--mut);font-size:12.5px}
+details.desc p{font-size:12.5px;color:#c3cbe0;margin:6px 0 0}
+.offl{font-size:12.5px}
+.about{padding:10px 16px 30px}.about h2{margin-top:26px}.about table{border-collapse:collapse;width:100%;font-size:14px}.about td,.about th{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}.about th{background:var(--panel2)}
+.footer{margin-top:40px;border-top:1px solid var(--line);background:#080b13;padding:22px 0 40px;color:var(--mut);font-size:13.5px}
+.credit-big{font-size:16px;color:#ffd54d;font-weight:800;margin:0 0 6px}
+.small{font-size:12px}
+.empty{padding:40px 0;text-align:center;color:var(--mut)}
+@media (max-width:560px){.topbar-in{height:auto;padding:8px 12px;flex-wrap:wrap;gap:4px}.logo{font-size:14.5px}.credit{font-size:11.5px}.grid{grid-template-columns:1fr}.chips .lab{min-width:100%}select{flex:1}}
