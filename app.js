@@ -13,11 +13,12 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const nt=n=>'NT$'+Math.round(n).toLocaleString('en-US');
 const yen=n=>'¥'+n.toLocaleString('en-US');
 $('#cntAll').textContent=M.counts.total;$('#cntProd').textContent=M.counts.products;$('#cntAcc').textContent=M.counts.accessories;
-$('#lines').innerHTML=Object.entries(SER).map(([k,s])=>`<div class="line" style="--c:${s.c}"><span class="n">${ITEMS.filter(i=>i.series===k).length} 項</span><h3>${s.name}</h3><p>${s.jp}｜${s.d}</p></div>`).join('');
+$('#lines').innerHTML=Object.entries(SER).map(([k,s])=>{const n=ITEMS.filter(i=>i.series===k).length;return `<div class="line" data-ser="${k}"><span class="n">${n} 項</span><h3>${s.name}</h3><div class="bar" role="img" aria-label="${k} 佔全部 ${Math.round(n/ITEMS.length*100)}%"><span style="width:${(n/ITEMS.length*100).toFixed(1)}%"></span></div><p>${s.jp}｜${s.d}</p></div>`}).join('');
+$('#legend').innerHTML='<span>系列配色：</span>'+Object.keys(SER).map(k=>`<span class="sw" data-ser="${k}"><i></i>${k} ${SER[k].name.split('（')[0].split(' ')[1]}</span>`).join('');
 $('#footMeta').innerHTML=`資料來源：<a href="${M.source}" target="_blank" rel="noopener">Takara Tomy BEYBLADE X 官方製品情報</a>及各零售商頁面｜價格與連結檢查日：${M.checked_date}｜匯率：1 JPY = ${R} TWD（${esc(M.rate.source)}，${esc(M.rate.as_of)}）｜建置：${esc(M.built)}`;
 function pool(){return ITEMS.filter(i=>st.tab==='accessories'?i.accessory:!i.accessory)}
-function chipRow(el,label,vals,set,countFn){
-  el.innerHTML=`<span class="lab">${label}</span>`+vals.map(v=>`<span class="chip${set.has(v[0])?' on':''}" data-v="${esc(v[0])}">${esc(v[1])}<span class="c">${countFn(v[0])}</span></span>`).join('');
+function chipRow(el,label,vals,set,countFn,ser){
+  el.innerHTML=`<span class="lab">${label}</span>`+vals.map(v=>`<span class="chip${set.has(v[0])?' on':''}" data-v="${esc(v[0])}"${ser?` data-ser="${esc(v[0])}"`:''}>${esc(v[1])}<span class="c">${countFn(v[0])}</span></span>`).join('');
   el.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{const v=c.dataset.v;set.has(v)?set.delete(v):set.add(v);render()});
 }
 function matches(i,skip){
@@ -37,7 +38,7 @@ function matches(i,skip){
 function controls(){
   const P=pool();
   const cnt=(k,f)=>v=>P.filter(i=>matches(i,k)&&f(i,v)).length;
-  chipRow($('#fSeries'),'系列',[['BX','BX 基本'],['UX','UX 獨特'],['CX','CX 客製']],st.series,cnt('series',(i,v)=>i.series===v));
+  chipRow($('#fSeries'),'系列',[['BX','BX 基本'],['UX','UX 獨特'],['CX','CX 客製']],st.series,cnt('series',(i,v)=>i.series===v),true);
   if(st.tab==='products'){
     $('#fType').hidden=false;$('#fKind').hidden=false;$('#fAcc').hidden=true;
     chipRow($('#fType'),'戰鬥類型',TYPES.map(t=>[t,t+'型']).concat([['無','未分類型（套組等）']]),st.type,cnt('type',(i,v)=>(i.type||'無')===v));
@@ -61,9 +62,9 @@ function card(i){
   if(i.tw_min!=null&&i.jp_twd){const d=i.tw_min-i.jp_twd;const pct=Math.round(d/i.jp_twd*100);
     diff=d<0?`<div class="diff cheaper-tw">台灣最低價比日本定價換算便宜 ${nt(-d)}（${-pct}%）</div>`:`<div class="diff cheaper-jp">台灣最低價比日本定價換算貴 ${nt(d)}（+${pct}%）</div>`}
   const title=i.name_zh?esc(i.name_zh):esc(i.name_jp);
-  return `<article class="card">
+  return `<article class="card" data-ser="${i.series}">
   <div class="img">${i.image?`<img loading="lazy" src="${esc(i.image)}" alt="${esc(i.code+' '+i.name_jp)}" referrerpolicy="no-referrer">`:'<span class="noimg">無官方圖片</span>'}
-   <span class="ser" style="background:${s.c}">${i.series}</span>${i.limited?`<span class="lim">${esc(i.limited_note||'限定品')}</span>`:''}</div>
+   <span class="ser">${i.series}</span>${i.limited?`<span class="lim">${esc(i.limited_note||'限定品')}</span>`:''}</div>
   <div class="body">
    <div><span class="code">${esc(i.code)}</span> <span class="badge">${esc(i.accessory?(i.acc_sub||'配件'):i.kind)}</span></div>
    <div class="nm">${title}</div>
@@ -95,7 +96,7 @@ function render(){
   const key=i=>gb==='series'?i.series:gb==='type'?(i.type||'無'):i.kind;
   const label=k=>gb==='series'?SER[k].name:gb==='type'?(k==='無'?'未分類型（套組、雙入門組、隨機包等）':k+'型'):k;
   const html=order.map(k=>{const g=L.filter(i=>key(i)===k);if(!g.length)return'';
-    return `<section class="group"><h2>${esc(label(k))} <span class="badge">${g.length} 項</span></h2><div class="grid">${g.map(card).join('')}</div></section>`}).join('');
+    return `<section class="group"${gb==='series'?` data-ser="${k}"`:''}><h2>${esc(label(k))} <span class="badge">${g.length} 項</span></h2><div class="grid">${g.map(card).join('')}</div></section>`}).join('');
   $('#list').innerHTML=html||'<div class="empty">沒有符合條件的商品</div>';
 }
 function renderAbout(){
@@ -103,7 +104,7 @@ function renderAbout(){
   $('#about').innerHTML=`
   <h2>官方系列（Line）</h2>
   <p>依 Takara Tomy 官方製品情報頁的篩選按鈕，BEYBLADE X 目前只有三條官方系列：<b>BX ベーシックライン（Basic Line）</b>、<b>UX ユニークライン（Unique Line）</b>、<b>CX カスタムライン（Custom Line）</b>。官方清單中<b>沒有「ZX」系列</b>（"ZX" 很可能是 "CX" 的語音辨識誤差）。</p>
-  <table><tr><th>系列</th><th>本站收錄</th><th>其中配件</th></tr>${['BX','UX','CX'].map(k=>`<tr><td>${SER[k].name}</td><td>${ITEMS.filter(i=>i.series===k).length}</td><td>${ITEMS.filter(i=>i.series===k&&i.accessory).length}</td></tr>`).join('')}</table>
+  <table><tr><th>系列</th><th>本站收錄</th><th>其中配件</th></tr>${['BX','UX','CX'].map(k=>`<tr data-ser="${k}"><td>${SER[k].name}</td><td>${ITEMS.filter(i=>i.series===k).length}</td><td>${ITEMS.filter(i=>i.series===k&&i.accessory).length}</td></tr>`).join('')}</table>
   <h2>分類方式</h2>
   <ul><li><b>戰鬥類型</b>：依官方清單標示的攻擊／防禦／耐久／平衡。官方未標示類型的商品（多為套組、雙入門組、隨機包）歸為「未分類型」。</li>
   <li><b>商品種類</b>：スターター＝入門組、ダブルスターター＝雙入門組、ブースター＝補充包（台灣常稱強化組）、カラーチョイスブースター＝選色補充包、ランダムブースター＝隨機包（台灣稱隨機強化組）、セット＝套組。</li>
